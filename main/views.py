@@ -4,6 +4,9 @@ from django.shortcuts import render
 def index(request):
     return render(request, 'main/index.html')
 
+def mainMenu(request):
+    return render(request, 'main/menu.html')
+
 
 def link(request):
     return render(request, '')
