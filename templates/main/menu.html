@@ -12,8 +12,20 @@
 {% block content %}
   <header>
     <h1>PriceSniffer</h1>
+    <ul class="buttons">
+      <li>
+        <a href="{% url 'main:profile' %}">профиль</a>
+      </li>
+      <li>
+        <a href="{% url 'main:about' %}">о нас</a>
+      </li>
+      <li>
+        <a href="{% url 'main:contacts' %}">контакты</a>
+      </li>
+      <li>
+        <a href="{% url 'main:reviews' %}">отзывы</a>
+      </li>
+    </ul>
   </header>
-  <div class="container">
-    <input type="text" />
-  </div>
+  <div class="container"></div>
 {% endblock %}

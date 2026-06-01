@@ -2,19 +2,20 @@
 {% load static %}
 
 {% block style %}
-  {% static 'css/main.css' %}
+  {% static 'css/profile.css' %}
 {% endblock %}
 
 {% block title %}
-  Главное меню
+  Профиль
 {% endblock %}
 
 {% block content %}
   <header>
     <h1>PriceSniffer</h1>
-    <h3>Главное меню - общее</h3>
+    <h3>Профиль</h3>
   </header>
   <div class="container">
-    <a href="{% url 'main:menu' %}">Начать</a>
+    <a onclick="history.back()" style="cursor: pointer;"><</a>
+    <img src="" alt="Иконка пользователя" />
   </div>
 {% endblock %}
