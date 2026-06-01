@@ -12,10 +12,9 @@
 {% block content %}
   <header>
     <h1>PriceSniffer</h1>
-    <h3>Профиль</h3>
+    <a href="{% url 'main:menu' %}">Главная</a>
   </header>
   <div class="container">
-    <a onclick="history.back()" style="cursor: pointer;"><</a>
     <img src="" alt="Иконка пользователя" />
   </div>
 {% endblock %}

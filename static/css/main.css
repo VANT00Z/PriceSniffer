@@ -12,16 +12,32 @@
 
 body {
     font-family: 'Montserrat', sans-serif;
-    padding: 20px;
+    padding: 15px 30px;
 }
 
 body h1 {
     padding: 5px 0;
-    font-weight: lighter;
+    font-weight: bold;
+    font-size: 48px;
 }
 
 header {
     padding: 10px 0;
+}
+
+header ul {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+}
+
+header ul li {
+    padding: 0 5px;
+}
+
+header ul li a {
+    text-decoration: none;
+    color: black;
 }
 
 .container {
