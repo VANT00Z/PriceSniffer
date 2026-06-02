@@ -11,10 +11,21 @@
 
 {% block content %}
   <header>
-    <h1>PriceSniffer</h1>
-    <h3>Главное меню - общее</h3>
+    <h1 style="cursor: default;">PriceSniffer</h1>
+    <ul class="buttons">
+      <li>
+        <a href="{% url 'main:profile' %}">профиль</a>
+      </li>
+      <li>
+        <a href="{% url 'main:about' %}">о нас</a>
+      </li>
+      <li>
+        <a href="{% url 'main:contacts' %}">контакты</a>
+      </li>
+      <li>
+        <a href="{% url 'main:reviews' %}">отзывы</a>
+      </li>
+    </ul>
   </header>
-  <div class="container">
-    <a href="{% url 'main:menu' %}">Начать</a>
-  </div>
+  <div class="container"></div>
 {% endblock %}
