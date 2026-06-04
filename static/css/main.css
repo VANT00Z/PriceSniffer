@@ -33,7 +33,6 @@ header ul {
     display: flex;
     align-items: center;
     flex-direction: row;
-    align-self: right;
 }
 
 header ul li {

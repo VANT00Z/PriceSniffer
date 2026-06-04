@@ -12,7 +12,7 @@
 {% block content %}
   <header>
     <h1 style="cursor: default;">PriceSniffer</h1>
-    <ul class="buttons">
+    <ul>
       <li>
         <a href="{% url 'main:profile' %}">профиль</a>
       </li>
@@ -27,5 +27,9 @@
       </li>
     </ul>
   </header>
-  <div class="container"></div>
+  <div class="container">
+    <div class="main-area">
+      <a href="#" id="start-button">Начать</a>
+    </div>
+  </div>
 {% endblock %}
