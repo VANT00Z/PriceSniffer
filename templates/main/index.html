@@ -29,7 +29,38 @@
   </header>
   <div class="container">
     <div class="main-area">
+      <h1>Начни сейчас!</h1>
       <a href="#" id="start-button">Начать</a>
     </div>
   </div>
+
+  <div class="registration_popup" id="reg-popup">
+    <div class="registration_popup_body">
+      {% csrf_token %}
+      <form action="">
+        <input type="text" id="reg-username" placeholder="Логин/Имя" />
+        <input type="email" id="reg-email" placeholder="Почта" />
+        <input type="text" id="reg-phone" placeholder="Номер телефона" />
+        <input type="password" id="reg-password" placeholder="Пароль" />
+        <input type="password" id="reg-ex-password" placeholder="Повтор пароля" />
+        <button type="submit">Создать аккаунт</button>
+      </form>
+      <a href="#">Есть аккаунт?</a>
+      <a href="#">Закрыть</a>
+    </div>
+  </div>
+
+  <div class="authorization_popup" id="auth-popup">
+    <div class="authorization_popup_body">
+      {% csrf_token %}
+      <form action="">
+        <input type="text" id="auth-username" placeholder="Логин/Почта" />
+        <input type="password" id="auth-password" placeholder="Пароль" />
+        <button type="submit">Создать аккаунт</button>
+      </form>
+      <a href="#">Есть аккаунт?</a>
+      <a href="#">Закрыть</a>
+    </div>
+  </div>
+  <script src="{% static 'js/main.js' %}"></script>
 {% endblock %}

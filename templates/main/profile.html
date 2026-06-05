@@ -12,9 +12,13 @@
 {% block content %}
   <header>
     <h1>PriceSniffer</h1>
-    <a href="{% url 'main:menu' %}">Главная</a>
+    <a href="{% url 'main:menu' %}">⭠ Главная</a>
   </header>
   <div class="container">
-    <img src="" alt="Иконка пользователя" />
+    <div class="user_card">
+      <img src="{% static 'imgs/zaza.png' %}" alt="Иконка пользователя" class="user_img" id="user-img" />
+      <p class="username" id="username">Хранитель сваги</p>
+    </div>
   </div>
+  <script src="{% static 'profile.js' %}"></script>
 {% endblock %}
