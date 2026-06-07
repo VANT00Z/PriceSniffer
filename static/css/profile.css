@@ -20,6 +20,8 @@ header a::before {
 .container {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .container a {
@@ -28,16 +30,49 @@ header a::before {
 }
 
 .user_card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    margin-top: 20px;
     border: 5px solid black;
     border-radius: 16px;
     width: 50vw;
+    height: 70vh;
+}
+
+.user_card_body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
 }
 
 .user_img {
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
+    animation: pulse-shadow 3.5s infinite ease-in-out;
+    outline: 3px solid black;
+}
+
+@keyframes pulse-shadow {
+    0% {
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    }
+
+    50% {
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.9), 0 0 20px rgba(66, 66, 66, 0.6);
+    }
+
+    100% {
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    }
+}
+
+.user_card_body h2 {
+    font-size: 20px;
+    font-weight: 700;
+    padding: 10px 0;
+}
+
+.user_card_body p {
+    font-size: 20px;
+    font-weight: 700;
 }
