@@ -1,24 +1,7 @@
-/* Classic font */
-@font-face {
-    font-family: 'Montserrat';
-    src: url('/static/fonts/Montserrat/Montserrat-VariableFont_wght.ttf') format('tff');
-    font-display: swap;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-}
-
-body {
-    font-family: 'Montserrat', sans-serif;
-    padding: 15px 30px;
-}
-
 header {
     display: flex;
     flex-direction: row;
-    padding: 10px 0;
+    padding: 25px 30px;
 }
 
 header h1 {
@@ -38,7 +21,12 @@ header ul {
 }
 
 header ul li {
-    padding: 0 5px;
+    padding: 0 20px;
+}
+
+s s header ul p {
+    font-size: 25px;
+    font-weight: 500;
 }
 
 header ul li a {
@@ -46,10 +34,12 @@ header ul li a {
     font-weight: 500;
     text-decoration: none;
     color: black;
+    text-shadow: 2px 3px 5px rgba(0, 0, 0, 0.5);
 }
 
 header ul li a:hover {
-    color: red;
+    text-shadow: 2px 3px 5px rgba(0, 0, 0, 0.8);
+    font-weight: 550;
 }
 
 .main-area {
@@ -57,11 +47,42 @@ header ul li a:hover {
     flex-direction: column;
     align-items: center;
     padding: calc(100vh - 70vh) 0;
+    margin-top: 5px;
+    width: 100%;
+    background-color: grey;
+}
+
+.main-area h1 {
+    font-size: 48px;
+    animation-name: fadeIn;
+    animation-duration: 1.2s;
+}
+
+.main-area a {
+    margin-top: 15px;
+    padding: 10px 15px;
+    color: white;
+    text-decoration: none;
+    font-size: 25px;
+    font-weight: 600;
+    background-color: black;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.7);
+    border-radius: 8px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.main-area a:hover {
+    color: black;
+    animation: buttonsHover 0.2s;
+    animation-fill-mode: forwards;
 }
 
 .container {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
 }
 
 .registration_popup {
@@ -72,4 +93,28 @@ header ul li a:hover {
 .authorization_popup {
     display: none;
     position: absolute;
+}
+
+
+/* Animations */
+@keyframes buttonsHover {
+    from {
+        box-shadow: none;
+    }
+
+    to {
+        background-color: white;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
