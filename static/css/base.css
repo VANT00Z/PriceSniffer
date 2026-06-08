@@ -17,3 +17,7 @@ body {
 header {
     padding: 25px 30px;
 }
+
+header h1 {
+    cursor: default;
+}

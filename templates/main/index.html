@@ -11,16 +11,16 @@
 
 {% block content %}
   <header>
-    <h1 style="cursor: default;">PriceSniffer</h1>
+    <h1>PriceSniffer</h1>
     <ul>
       <li>
         <a href="{% url 'main:profile' %}">профиль</a>
       </li>
       <p>|</p>
-      <li>
+      {% comment %} <li>
         <a href="{% url 'main:about' %}">о нас</a>
       </li>
-      <p>|</p>
+      <p>|</p> {% endcomment %}
       <li>
         <a href="{% url 'main:contacts' %}">контакты</a>
       </li>

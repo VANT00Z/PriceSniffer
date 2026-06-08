@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from .models import User, Review
 
 
 """ main menu """
@@ -32,3 +33,6 @@ def contacts(request):
 
 def reviews(request):
     return render(request, 'main/reviews.html')
+
+def link(request):
+    return render(request, 'main/link.html')

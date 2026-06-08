@@ -21,3 +21,29 @@ header a::before {
     display: flex;
     flex-direction: column;
 }
+
+.contacts {
+    position: fixed;
+    bottom: 0;
+    padding: 40px 67px;
+}
+
+.contacts ul {
+    list-style-type: none;
+}
+
+.contacts ul li {
+    padding: 20px 0;
+}
+
+.contacts ul li h1 {
+    cursor: default;
+    font-size: 40px;
+    font-weight: 800;
+}
+
+.contacts ul li a {
+    color: black;
+    padding-left: 40px;
+    font-size: 30px;
+}

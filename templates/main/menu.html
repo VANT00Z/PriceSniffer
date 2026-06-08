@@ -17,10 +17,10 @@
         <a href="{% url 'main:profile' %}">профиль</a>
       </li>
       <p>|</p>
-      <li>
+      {% comment %} <li>
         <a href="{% url 'main:about' %}">о нас</a>
       </li>
-      <p>|</p>
+      <p>|</p> {% endcomment %}
       <li>
         <a href="{% url 'main:contacts' %}">контакты</a>
       </li>
@@ -33,7 +33,7 @@
   <div class="container">
     <div class="main-area">
       <h1 style="cursor: default;">Начни сейчас!</h1>
-      <a href="#" id="start-button">найти товар</a>
+      <a href="{% url 'main:link' %}" id="start-button">найти товар</a>
     </div>
   </div>
 {% endblock %}

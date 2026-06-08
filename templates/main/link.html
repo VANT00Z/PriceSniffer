@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+  {% static 'css/link.css' %}
+{% endblock %}
+
+{% block title %}
+  Ссылка
+{% endblock %}
+
+{% block content %}
+  <header>
+    <h1>PriceSniffer</h1>
+    <a href="{% url 'main:menu' %}">главная</a>
+  </header>
+  <div class="container">
+    <div class="link_unput_body">
+      <form action="/search" method="post">
+        {% csrf_token %}
+        <input type="text" placeholder="Вставьте ссылку на товар" name="" />
+        <button type="submit">найти</button>
+      </form>
+    </div>
+  </div>
+{% endblock %}
