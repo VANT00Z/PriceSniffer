@@ -10,31 +10,23 @@
 {% endblock %}
 
 {% block content %}
-  <header>
-    <h1>PriceSniffer</h1>
-    <ul>
-      <li>
-        <a href="{% url 'main:profile' %}">профиль</a>
-      </li>
-      <p>|</p>
-      {% comment %} <li>
-        <a href="{% url 'main:about' %}">о нас</a>
-      </li>
-      <p>|</p> {% endcomment %}
-      <li>
-        <a href="{% url 'main:contacts' %}">контакты</a>
-      </li>
-      <p>|</p>
-      <li>
-        <a href="{% url 'main:reviews' %}">отзывы</a>
-      </li>
-    </ul>
-  </header>
   <div class="container">
     <div class="main-area">
-      <h1 style="cursor: default;">Начни сейчас!</h1>
-      <a href="#" id="start-button">регистрация</a>
+      <h2>Трать меньше - живи лучше.</h2>
+      <p>Позвольте себе желаемое, не считая компейки до зарплаты.</p>
+      <h1 style="cursor: default;">Price</h1>
+      <h1 style="cursor: default;">Sniffer</h1>
+      <a href="{% url 'main:link' %}" id="start-button">найти товар</a>
     </div>
+    {% comment %} <div class="minor-area">
+      <div class="about-area">
+        <h1>О нас</h1>
+        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Id quo aliquam recusandae distinctio amet reiciendis, veniam neque ad aut deleniti officia illum doloremque atque. Neque laboriosam repellat assumenda veritatis fugit.</p>
+      </div>
+      <div class="img-area">
+        <img src="{% static 'imgs/king.jpg' %}" alt="KING" />
+      </div>
+    </div> {% endcomment %}
   </div>
 
   <div class="registration_popup" id="reg-popup">

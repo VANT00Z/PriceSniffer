@@ -1,0 +1,17 @@
+.main-area {
+    background-color: black;
+    color: white;
+    cursor: default;
+}
+
+
+.main-area h2 {}
+
+.main-area h1:first-of-type {
+    color: red;
+}
+
+.main-area a {
+    color: white;
+    text-decoration: none;
+}

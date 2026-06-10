@@ -6,7 +6,7 @@ from .models import User, Review
 
 
 def index(request):
-    return render(request, 'main/index.html')
+    return render(request, 'main/test.html')
 
 
 """ menu with register """
