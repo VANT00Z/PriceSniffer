@@ -1,0 +1,23 @@
+/* Classic font */
+@font-face {
+    font-family: 'Montserrat';
+    src: url('/static/fonts/Montserrat/Montserrat-VariableFont_wght.ttf') format('truetype');
+    font-display: swap;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+
+header {
+    padding: 25px 30px;
+}
+
+header h1 {
+    cursor: default;
+}

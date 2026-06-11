@@ -2,21 +2,18 @@ from django.shortcuts import render
 from .models import User, Review
 
 
-""" main menu """
+""" Mains """
 
 
 def index(request):
-    return render(request, 'main/test.html')
-
-
-""" menu with register """
+    return render(request, 'main/index.html')
 
 
 def mainMenu(request):
     return render(request, 'main/menu.html')
 
 
-""" buttons """
+""" Buttons """
 
 
 def profile(request):
@@ -36,3 +33,12 @@ def reviews(request):
 
 def link(request):
     return render(request, 'main/link.html')
+
+
+""" Functions """
+
+def register(request):
+    return render(request, '')
+
+def authorization(request):
+    return render(request, '')

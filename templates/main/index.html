@@ -10,15 +10,19 @@
 {% endblock %}
 
 {% block content %}
-  <div class="container">
+  <div class="content">
     <div class="main-area">
-      <h2>Трать меньше - живи лучше.</h2>
-      <p>Позвольте себе желаемое, не считая компейки до зарплаты.</p>
-      <h1 style="cursor: default;">Price</h1>
-      <h1 style="cursor: default;">Sniffer</h1>
-      <a href="{% url 'main:link' %}" id="start-button">найти товар</a>
+      <div class="text">
+        <h1>Price</h1>
+        <h1>Sniffer</h1>
+        <h2>Трать меньше - живи лучше.</h2>
+        <p>Позвольте себе желаемое, не считая копейки до зарплаты.</p>
+      </div>
+      <div class="start_area">
+        <a href="{% url 'main:menu' %}">Начать</a>
+      </div>
     </div>
-    {% comment %} <div class="minor-area">
+    <div class="minor-area">
       <div class="about-area">
         <h1>О нас</h1>
         <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Id quo aliquam recusandae distinctio amet reiciendis, veniam neque ad aut deleniti officia illum doloremque atque. Neque laboriosam repellat assumenda veritatis fugit.</p>
@@ -26,13 +30,13 @@
       <div class="img-area">
         <img src="{% static 'imgs/king.jpg' %}" alt="KING" />
       </div>
-    </div> {% endcomment %}
+    </div>
   </div>
 
   <div class="registration_popup" id="reg-popup">
     <div class="registration_popup_body">
       {% csrf_token %}
-      <form action="">
+      <form action="{% url 'main:register' %}">
         <input type="text" id="reg-username" placeholder="Логин/Имя" />
         <input type="email" id="reg-email" placeholder="Почта" />
         <input type="text" id="reg-phone" placeholder="Номер телефона" />
@@ -48,7 +52,7 @@
   <div class="authorization_popup" id="auth-popup">
     <div class="authorization_popup_body">
       {% csrf_token %}
-      <form action="">
+      <form action="{% url 'main:authorization' %}">
         <input type="text" id="auth-username" placeholder="Логин/Почта" />
         <input type="password" id="auth-password" placeholder="Пароль" />
         <button type="submit">Создать аккаунт</button>

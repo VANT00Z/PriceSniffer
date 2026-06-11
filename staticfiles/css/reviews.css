@@ -1,0 +1,23 @@
+header h1 {
+    font-weight: bold;
+    font-size: 48px;
+    letter-spacing: 2px;
+    width: auto;
+}
+
+header a {
+    font-size: 20px;
+    font-weight: 600;
+    text-decoration: none;
+    color: black;
+}
+
+header a::before {
+    content: '⭠';
+    padding: 0 5px 0 0;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+}
