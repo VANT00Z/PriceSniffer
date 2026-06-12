@@ -11,7 +11,6 @@
 
 {% block content %}
   <header>
-    <h1>PriceSniffer</h1>
     <ul class="buttons">
       <li>
         <a href="{% url 'main:profile' %}">профиль</a>
@@ -26,12 +25,19 @@
       </li>
     </ul>
   </header>
-  <div class="container">
+  <div class="content">
     <div class="main-area">
-      <h1 style="cursor: default;">Начни сейчас!</h1>
-      <a href="{% url 'main:link' %}" id="start-button">найти товар</a>
+      <div class="text">
+        <h1>Price</h1>
+        <h1>Sniffer</h1>
+        <h2>Нужна только ссылка.</h2>
+        {% comment %} <p>Позвольте себе желаемое, не считая копейки до зарплаты.</p> {% endcomment %}
+      </div>
+      <div class="start_area">
+        <a href="{% url 'main:menu' %}">Ввести ссылку</a>
+      </div>
     </div>
-    {% comment %} <div class="minor-area">
+    <div class="minor-area">
       <div class="about-area">
         <h1>О нас</h1>
         <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Id quo aliquam recusandae distinctio amet reiciendis, veniam neque ad aut deleniti officia illum doloremque atque. Neque laboriosam repellat assumenda veritatis fugit.</p>
@@ -39,6 +45,6 @@
       <div class="img-area">
         <img src="{% static 'imgs/king.jpg' %}" alt="KING" />
       </div>
-    </div> {% endcomment %}
+    </div>
   </div>
 {% endblock %}
