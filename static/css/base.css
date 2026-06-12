@@ -5,6 +5,8 @@
     font-display: swap;
 }
 
+
+/* Main */
 * {
     margin: 0;
     padding: 0;
@@ -20,4 +22,10 @@ header {
 
 header h1 {
     cursor: default;
+}
+
+/* Other */
+::selection {
+    background-color: orange;
+    color: black;
 }

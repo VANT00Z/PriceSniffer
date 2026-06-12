@@ -107,6 +107,7 @@
 }
 
 .about-area p {
+    padding-top: 10px;
     font-size: medium;
     font-weight: 500;
 }
@@ -152,10 +153,4 @@
         opacity: 1;
         transform: translateY(0);
     }
-}
-
-/* Other */
-::selection {
-    background-color: grey;
-    color: black;
 }
