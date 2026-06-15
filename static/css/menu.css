@@ -1,3 +1,25 @@
+header .logo {
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    align-items: center;
+    /* gap: 10px; */
+}
+
+.logo h1 {
+    font-weight: 900;
+    text-align: left;
+}
+
+.logo h1:first-of-type {
+    color: rgba(255, 0, 0, 0.8);
+}
+
+.logo p {
+    font-size: 30px;
+    font-weight: 700;
+}
+
 .buttons {
     display: flex;
     flex-direction: row;
@@ -10,7 +32,7 @@
 
 .buttons li a {
     text-decoration: none;
-    color: black;
+    color: #140F0B;
     font-size: 30px;
     font-weight: normal;
     padding: 0 10px;
@@ -21,13 +43,57 @@
 }
 
 .main-area {
+    display: flex;
     min-height: 90vh;
+    align-items: center;
     color: white;
-    background-color: black;
+    background-color: #140F0B;
 }
 
-.main-area h1:first-of-type {
+.main-area .text {
+    color: white;
+    padding: 0 5vw;
+    justify-content: left;
+    cursor: default;
+    animation: fadeIn 1.2s;
+}
+
+.text h1 {
+    font-size: 60px;
+    font-weight: 900;
+}
+
+.text h2 {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.start_area {
+    display: flex;
+    flex: 1;
+    justify-content: right;
+    width: 100%;
+    padding: 0 5vw;
+}
+
+.start_area a {
+    color: white;
+    text-decoration: none;
+    font-size: 25px;
+    font-weight: 700;
+
+    background-color: rgba(255, 0, 0, 0.8);
+    border-radius: 8px;
+    padding: 20px 80px;
+
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.start_area a:hover {
     color: red;
+    font-weight: 900;
+    animation: buttonsHover 0.2s;
+    animation-fill-mode: forwards;
 }
 
 .minor-area {
@@ -65,4 +131,27 @@
     border-radius: 16px;
     width: 350px;
     height: 500px;
+}
+
+/* Animations */
+@keyframes buttonsHover {
+    from {
+        box-shadow: none;
+    }
+
+    to {
+        background-color: white;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

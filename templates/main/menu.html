@@ -11,6 +11,11 @@
 
 {% block content %}
   <header>
+    <div class="logo">
+      <h1>Price/</h1>
+      <p></p>
+      <h1>/Sniffer</h1>
+    </div>
     <ul class="buttons">
       <li>
         <a href="{% url 'main:profile' %}">профиль</a>
@@ -28,10 +33,8 @@
   <div class="content">
     <div class="main-area">
       <div class="text">
-        <h1>Price</h1>
-        <h1>Sniffer</h1>
+        <h1>Хочешь узнать цену?</h1>
         <h2>Нужна только ссылка.</h2>
-        {% comment %} <p>Позвольте себе желаемое, не считая копейки до зарплаты.</p> {% endcomment %}
       </div>
       <div class="start_area">
         <a href="{% url 'main:menu' %}">Ввести ссылку</a>
@@ -40,11 +43,28 @@
     <div class="minor-area">
       <div class="about-area">
         <h1>О нас</h1>
-        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Id quo aliquam recusandae distinctio amet reiciendis, veniam neque ad aut deleniti officia illum doloremque atque. Neque laboriosam repellat assumenda veritatis fugit.</p>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium hic quae vero unde ea distinctio voluptate odio nam nostrum illo? Minus quisquam magnam reiciendis officiis? Voluptatibus autem velit rerum quidem!</p>
+        <p>Bully is the twelfth studio album by the American rapper and record producer Kanye West. It was released through YZY and Gamma on March 28, 2026. The album features guest appearances from Travis Scott, André Troutman, Nine Vicious, CeeLo Green, and Peso Pluma. Production was handled by West, Troutman, the Legendary Traxster, Nkenge 1x, and 88-Keys, among others. "Father" (with Scott) was released as the album's lead single along with its release.</p>
+        <p>West began working on Bully after the release of Vultures 1 and Vultures 2 (2024), and announced the record in September 2024. He surprise released multiple work-in-progress versions via X on March 18, 2025, accompanied by a short film, titled Bully V1, in which was directed by West and edited by Hype Williams. It stars West's son, Saint, who fights New Japan Pro-Wrestling wrestlers with a toy mallet.</p>
+        <p>Sonically, Bully V1 extensively relies on sampling and interpolations, and West mostly sings instead of rapping. Most of West's vocals in the original and physical releases were artificial intelligence-generated audio deepfakes, and he would later re-record most lyrics with his own vocals. Bully V1 received positive reviews from music critics, with praise for its production, though some found its presentation lackluster.</p>
+        <h2 style="margin-top: 10px;">Sex is for weak, I choose to die in agony of love.</h2>
       </div>
       <div class="img-area">
         <img src="{% static 'imgs/king.jpg' %}" alt="KING" />
       </div>
     </div>
   </div>
+  <nav>
+    <ul>
+      <li>
+        <a href="">Поддержать проект</a>
+      </li>
+      <li>
+        <a href="">Авторы</a>
+      </li>
+      <li>
+        <a href=""></a>
+      </li>
+    </ul>
+  </nav>
 {% endblock %}

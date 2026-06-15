@@ -10,14 +10,15 @@
 }
 
 .main-area .text {
-    justify-content: left;
+    color: white;
     padding: 0 5vw;
     cursor: default;
+    animation: fadeIn 1.2s;
 }
 
 .main-area .start_area {
-    justify-content: right;
     display: flex;
+    justify-content: right;
     flex: 1;
     padding: 0 5vw;
 }
@@ -29,25 +30,16 @@
 .main-area h1 {
     font-size: 100px;
     font-weight: 900;
-    color: white;
-    text-align: left;
-    animation: fadeIn 1.2s;
 }
 
 .main-area h2 {
-    color: white;
-    text-align: left;
-    margin-bottom: 10px;
     font-size: 40px;
-    animation: fadeIn 1.2s;
+    margin-bottom: 10px;
 }
 
 .main-area p {
-    color: white;
-    text-align: left;
     font-size: 16px;
     margin-left: 6px;
-    animation: fadeIn 1.2s;
 }
 
 .main-area a {
