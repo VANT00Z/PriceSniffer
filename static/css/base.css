@@ -28,4 +28,5 @@ header h1 {
 ::selection {
     background-color: orange;
     color: black;
+    border-radius: 16px;
 }

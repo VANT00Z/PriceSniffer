@@ -49,8 +49,8 @@
         <p>Sonically, Bully V1 extensively relies on sampling and interpolations, and West mostly sings instead of rapping. Most of West's vocals in the original and physical releases were artificial intelligence-generated audio deepfakes, and he would later re-record most lyrics with his own vocals. Bully V1 received positive reviews from music critics, with praise for its production, though some found its presentation lackluster.</p>
         <h2 style="margin-top: 10px;">Sex is for weak, I choose to die in agony of love.</h2>
       </div>
-      <div class="img-area">
-        <img src="{% static 'imgs/king.jpg' %}" alt="KING" />
+      <div class="graph-area">
+        <canvas id="graph" width="350px" height="500px"></canvas>
       </div>
     </div>
   </div>
@@ -67,4 +67,6 @@
       </li>
     </ul>
   </nav>
+  <script src="{% static 'js/main.js' %}"></script>
+  <script src="{% static 'js/graph.js' %}"></script>
 {% endblock %}

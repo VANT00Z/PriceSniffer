@@ -47,7 +47,7 @@ header .logo {
     min-height: 90vh;
     align-items: center;
     color: white;
-    background-color: #140F0B;
+    background-color: black;
 }
 
 .main-area .text {
@@ -123,14 +123,13 @@ header .logo {
     font-weight: 500;
 }
 
-.img-area {
+.graph-area {
     padding-left: 20px;
 }
 
-.img-area img {
+.graph-area canvas {
     border-radius: 16px;
-    width: 350px;
-    height: 500px;
+    border: #140F0B solid 5px;
 }
 
 /* Animations */
