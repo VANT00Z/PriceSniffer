@@ -44,6 +44,14 @@ header a::before {
     padding: 20px;
 }
 
+.user_card_body hr {
+    border: none;
+    background-color: black;
+    height: 2px;
+    width: 25%;
+    margin: 0 auto;
+}
+
 .user_img {
     width: 150px;
     height: 150px;

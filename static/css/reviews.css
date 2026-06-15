@@ -20,4 +20,45 @@ header a::before {
 .container {
     display: flex;
     flex-direction: column;
+    box-sizing: border-box;
+}
+
+.container hr {
+    border: none;
+    background-color: black;
+    height: 2px;
+    width: 100vw;
+    margin: 0 auto;
+}
+
+.text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.text h1 {
+    font-size: 30px;
+    font-weight: 900;
+    letter-spacing: 3px;
+    /* transform: scaleX(1.2); */
+}
+
+.container ul {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    list-style: none;
+    gap: 20px;
+    padding: 20px 0;
+}
+
+.container ul li {
+    border: 4px solid black;
+    border-radius: 16px;
+    padding: 20px;
+    width: 250px;
+    height: 150px;
 }
