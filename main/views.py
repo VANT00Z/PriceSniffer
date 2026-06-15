@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from .models import User, Review
 
+import json
 
-""" Mains """
+""" Main """
 
 
 def index(request):
@@ -20,16 +21,15 @@ def profile(request):
     return render(request, 'main/profile.html')
 
 
-def about(request):
-    return render(request, 'main/about.html')
-
-
 def contacts(request):
     return render(request, 'main/contacts.html')
 
 
 def reviews(request):
-    return render(request, 'main/reviews.html')
+    with open('static/json/reviews.json', 'r', encoding='utf-8') as json_file:
+        reviews = json.load(json_file)
+    return render(request, 'main/reviews.html', {'reviews': reviews})
+
 
 def link(request):
     return render(request, 'main/link.html')
@@ -41,4 +41,7 @@ def register(request):
     return render(request, '')
 
 def authorization(request):
+    return render(request, '')
+
+def create_review(request):
     return render(request, '')

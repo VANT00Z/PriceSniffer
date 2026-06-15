@@ -42,7 +42,6 @@ header a::before {
     font-size: 30px;
     font-weight: 900;
     letter-spacing: 3px;
-    /* transform: scaleX(1.2); */
 }
 
 .container ul {
