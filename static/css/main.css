@@ -104,14 +104,13 @@
     font-weight: 500;
 }
 
-.img-area {
+.graph-area {
     padding-left: 20px;
 }
 
-.img-area img {
+.graph-area canvas {
     border-radius: 16px;
-    width: 350px;
-    height: 500px;
+    border: #140F0B solid 5px;
 }
 
 .registration_popup {
