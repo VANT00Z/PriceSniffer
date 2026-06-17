@@ -19,7 +19,7 @@
         <p>Позвольте себе желаемое, не считая копейки до зарплаты.</p>
       </div>
       <div class="start_area">
-        <a href="{% url 'main:menu' %}">Начать</a>
+        <a id="start-button" href="#">Начать</a>
       </div>
     </div>
     <div class="minor-area">
@@ -48,8 +48,8 @@
         <input type="password" id="reg-ex-password" placeholder="Повтор пароля" />
         <button type="submit">Создать аккаунт</button>
       </form>
-      <a href="#">Есть аккаунт?</a>
-      <a href="#">Закрыть</a>
+      <a id="change-to-auth" href="#">Есть аккаунт?</a>
+      <a id="close-reg-button" href="#">Закрыть</a>
     </div>
   </div>
 
@@ -59,10 +59,10 @@
       <form action="{% url 'main:authorization' %}">
         <input type="text" id="auth-username" placeholder="Логин/Почта" />
         <input type="password" id="auth-password" placeholder="Пароль" />
-        <button type="submit">Создать аккаунт</button>
+        <button type="submit">Войти</button>
       </form>
-      <a href="#">Есть аккаунт?</a>
-      <a href="#">Закрыть</a>
+      <a id="change-to-reg" href="#">Нет аккаунта?</a>
+      <a id="close-auth-button" href="#">Закрыть</a>
     </div>
   </div>
   <script src="{% static 'js/main.js' %}"></script>

@@ -37,11 +37,19 @@ def link(request):
 
 """ Functions """
 
-def register(request):
-    return render(request, '')
+
+def set_Cookie(request, user):
+    request.session["user"] = user
+    return "сессия создана"
+
 
 def authorization(request):
-    return render(request, '')
+    return "Попытка авторизации"
+
+
+def registration(request):
+    return "Попытка регистрации"
+
 
 def create_review(request):
     return render(request, '')

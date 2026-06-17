@@ -1,5 +1,17 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const startButton = document.querySelectorAll('#start-button');
+    const startButton = document.getElementById("start-button");
+
+    const changeToAuth = document.getElementById("change-to-auth");
+    const changeToReg = document.getElementById("change-to-reg");
+
+    const closeAuth = document.getElementById("close-auth-button");
+    const closeReg = document.getElementById("close-reg-button");
+
+    const authPopup = document.getElementById("auth-popup");
+    const regPopup = document.getElementById("reg-popup");
+
+    let isReg = true;
+
 
     function showNotification(message, isError = false) {
         const notification = document.createElement('div');
@@ -22,5 +34,68 @@ document.addEventListener('DOMContentLoaded', function () {
         }, 3000);
     }
 
-    function createUser() { };
+    function showRegPopup() {
+        regPopup.style.display = 'flex';
+        isReg = true;
+    }
+
+    function showAuthPopup() {
+        authPopup.style.display = 'flex';
+        isReg = false
+    }
+
+    function closePopups() {
+        regPopup.style.display = 'none';
+        authPopup.style.display = 'none';
+    }
+
+    function changePopups() {
+        if (isReg === true) {
+            closePopups();
+            showAuthPopup();
+            isReg = false;
+        }
+        else {
+            closePopups();
+            showRegPopup();
+            isReg = true;
+        }
+    }
+
+    startButton.addEventListener('click', function (event) {
+        event.preventDefault();
+        showRegPopup();
+    });
+
+    changeToAuth.addEventListener('click', function (event) {
+        event.preventDefault();
+        changePopups();
+    });
+
+    changeToReg.addEventListener('click', function (event) {
+        event.preventDefault();
+        changePopups();
+    });
+
+    closeAuth.addEventListener('click', function (event) {
+        event.preventDefault();
+        closePopups();
+    });
+
+    closeReg.addEventListener('click', function (event) {
+        event.preventDefault();
+        closePopups();
+    });
+
+    authPopup.addEventListener('click', function (event) {
+        if (event.target === authPopup) {
+            closePopups();
+        }
+    });
+
+    regPopup.addEventListener('click', function (event) {
+        if (event.target === regPopup) {
+            closePopups();
+        }
+    });
 })

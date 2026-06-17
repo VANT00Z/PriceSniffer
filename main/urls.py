@@ -10,15 +10,14 @@ urlpatterns = [
     # Pages
     path('menu', views.mainMenu, name='menu'),
     path('profile', views.profile, name='profile'),
-    path('about', views.about, name='about'),
     path('contacts', views.contacts, name='contacts'),
     path('reviews', views.reviews, name='reviews'),
     path('link', views.link, name='link'),
-    
+
     # Protocols
     # path(),
-    
+
     # Actions
-    path('register', views.register, name='register'),
+    path('register', views.registration, name='register'),
     path('authorization', views.authorization, name='authorization'),
 ]

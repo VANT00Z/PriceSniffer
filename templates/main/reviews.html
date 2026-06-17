@@ -22,17 +22,13 @@
     <hr />
     <div class="scroll">
       <ul>
-        <li>
-          <h1>Anus</h1>
-          <p>This ass is fire</p>
-          <p>6/7 stars</p>
-        </li>
-        <li>
-          <h1>User</h1>
-          <p>Discription</p>
-          <p>Stars</p>
-        </li>
-        {% for review in reviews %}{% endfor %}
+        {% for review in reviews %}
+          <li>
+            <h1>{{ review.user }}</h1>
+            <p>{{ review.discription }}</p>
+            <p>{{ review.stars }}</p>
+          </li>
+        {% endfor %}
       </ul>
     </div>
     <hr />

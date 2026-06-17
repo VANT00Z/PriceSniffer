@@ -113,14 +113,63 @@
     border: #140F0B solid 5px;
 }
 
+.authorization_popup,
 .registration_popup {
     display: none;
-    position: absolute;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 10000;
+    justify-content: center;
+    align-items: center;
 }
 
-.authorization_popup {
-    display: none;
-    position: absolute;
+.authorization_popup_body,
+.registration_popup_body {
+    background-color: white;
+    padding: 40px;
+    border-radius: 12px;
+    min-width: 300px;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.authorization_popup_body form,
+.registration_popup form {
+    flex-direction: column;
+    display: flex;
+    gap: 10px;
+}
+
+.authorization_popup_body form input,
+.registration_popup form input {
+    font-family: 'Montserrat', sans-serif;
+    border-radius: 10px;
+    padding: 8px 12px;
+    min-width: 250px;
+}
+
+.authorization_popup_body a,
+.registration_popup_body a {
+    color: black;
+    text-decoration: none;
+}
+
+.authorization_popup_body form button,
+.registration_popup_body form button {
+    font-family: 'Montserrat', sans-serif;
+    border-radius: 8px;
+    height: 40px;
+    font-size: large;
+    font-weight: 800;
+    color: white;
+    background-color: rgba(255, 0, 0, 0.8);
+    border: none;
 }
 
 /* Animations */
