@@ -59,8 +59,8 @@
       <h1>Авторизация</h1>
       <form method="post" action="{% url 'main:authorization' %}">
         {% csrf_token %}
-        <input type="text" id="auth-username" placeholder="Логин/Почта" />
-        <input type="password" id="auth-password" placeholder="Пароль" />
+        <input type="text" name="auth-username" placeholder="Логин/Почта" />
+        <input type="password" name="auth-password" placeholder="Пароль" />
         <button type="submit">Войти</button>
       </form>
       <a id="change-to-reg" href="#">Нет аккаунта?</a>

@@ -41,13 +41,49 @@ def link(request):
 
 
 def set_Cookie(request, user):
-    request.session["user"] = user
-    return
+    # Подключение cookie
+    return redirect('main:index')
 
 
 def authorization(request):
-    print("Попытка авторизации")
-    return redirect(request, 'main/menu.html')
+    if request.method == 'POST':
+        name = request.POST.get('auth-username').strip(),
+        password = request.POST.get('auth-password').strip()
+
+        hashed_password = hashlib.sha256(password.encode()).hexdigest()
+
+        if not all([name, password]):
+            response = {
+                'success': 'False',
+                'message': 'Не все поля заполнены'
+            }
+            return JsonResponse(response)
+
+        try:
+            # Успех
+            # user = User.objects.get(username=name)
+            response = {
+                'success': 'True',
+                'message': 'Успешная авторизация',
+                'redirect': '/menu'
+            }
+            return JsonResponse(response)
+
+        except User.DoesNotExist:
+            response = {
+                'success': 'False',
+                'message': 'Пользователь не найден'
+            }
+            return JsonResponse(response)
+
+        except Exception as error:
+            response = {
+                'success': 'False',
+                'message': f'Ошибка: {error}'
+            }
+            return JsonResponse(response)
+
+    return redirect('main:index')
 
 
 def registration(request):
@@ -59,7 +95,6 @@ def registration(request):
         repeat_password = request.POST.get('reg-ex-password').strip()
 
         if not all([name, email, number, password, repeat_password]):
-            # Вывод: не все поля заполены | Статус - Ошибка
             response = {
                 'success': 'False',
                 'message': 'Не все поля заполнены'
@@ -67,7 +102,6 @@ def registration(request):
             return JsonResponse(response)
 
         elif password != repeat_password:
-            # Вывод: пароли не совпадают | Статус - Ошибка
             response = {
                 'success': 'False',
                 'message': 'Пароли не совпадают'
@@ -75,7 +109,6 @@ def registration(request):
             return JsonResponse(response)
 
         elif User.objects.filter(username=str(name)).exists():
-            # Вывод: пользователь уже существует | Статус - Ошибка
             response = {
                 'success': 'False',
                 'message': 'Пользователь уже существует'
@@ -83,7 +116,11 @@ def registration(request):
             return JsonResponse(response)
 
         try:
-            return redirect('main/menu.html')
+            # Успех
+            hashed_password = hashlib.sha256(password.encode()).hexdigest()
+
+            return redirect('main:menu')
+
         except Exception as error:
             response = {
                 'success': 'False',
@@ -91,7 +128,7 @@ def registration(request):
             }
             return JsonResponse(response)
 
-    return redirect('main/index.html')
+    return redirect('main:index')
 
 
 def create_review(request):
