@@ -10,6 +10,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const authPopup = document.getElementById("auth-popup");
     const regPopup = document.getElementById("reg-popup");
 
+    const regForm = document.getElementById("");
+    const authForm = document.getElementById("");
+
     let isReg = true;
 
 
@@ -33,6 +36,10 @@ document.addEventListener('DOMContentLoaded', function () {
             notification.remove();
         }, 3000);
     }
+
+    // if (regForm) regForm.addEventListener('submit',);
+    // if (authForm) authForm.addEventListener('submit',);
+
 
     function showRegPopup() {
         regPopup.style.display = 'flex';
