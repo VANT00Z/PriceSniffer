@@ -10,8 +10,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const authPopup = document.getElementById("auth-popup");
     const regPopup = document.getElementById("reg-popup");
 
-    const regForm = document.getElementById("");
-    const authForm = document.getElementById("");
+    const regForm = document.getElementById("reg-form");
+    const authForm = document.getElementById("auth-form");
 
     let isReg = true;
 
@@ -37,8 +37,54 @@ document.addEventListener('DOMContentLoaded', function () {
         }, 3000);
     }
 
-    // if (regForm) regForm.addEventListener('submit',);
-    // if (authForm) authForm.addEventListener('submit',);
+    if (regForm) {
+        regForm.addEventListener('submit', async (e) => {
+            // 1. Отменяем стандартную перезагрузку страницы при отправке формы
+            e.preventDefault();
+
+            // 2. Собираем все данные из полей формы
+            const formData = new FormData(regForm);
+
+            try {
+                // 3. Отправляем асинхронный POST-запрос на URL, указанный в action формы
+                const response = await fetch(regForm.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        // Django требует этот заголовок для защиты от CSRF при AJAX-запросах
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                });
+
+                // 4. Ловим и декодируем JSON-ответ от Django
+                const data = await response.json();
+
+                // 5. Обрабатываем результат (свойства success и message из вашего views.py)
+                if (data.success === 'False') {
+                    // Выводим ошибку пользователю (можно заменить на красивый alert или текст на экране)
+                    alert(`Ошибка регистрации: ${data.message}`);
+                } else {
+                    // Если всё успешно (например, если Django вернул redirect)
+                    // Проверяем, прислал ли сервер URL для перенаправления
+                    if (response.redirected) {
+                        window.location.href = response.url;
+                    } else {
+                        alert('Регистрация успешна!');
+                        window.location.href('/menu'); // или перенаправление вручную
+                    }
+                }
+
+            }
+            catch (error) {
+                console.warn("Ошибка сервера или сети:", error);
+                alert("Произошла ошибка")
+            }
+        })
+    }
+
+    if (authForm) {
+        console.log('Форма авторизации найдена')
+    }
 
 
     function showRegPopup() {

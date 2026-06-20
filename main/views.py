@@ -47,7 +47,7 @@ def set_Cookie(request, user):
 
 def authorization(request):
     if request.method == 'POST':
-        name = request.POST.get('auth-username').strip(),
+        name = request.POST.get('auth-username').strip()
         password = request.POST.get('auth-password').strip()
 
         hashed_password = hashlib.sha256(password.encode()).hexdigest()
@@ -88,10 +88,10 @@ def authorization(request):
 
 def registration(request):
     if request.method == 'POST':
-        name = request.POST.get('reg-username').strip(),
-        email = request.POST.get('reg-email').strip(),
-        number = request.POST.get('reg-phone').strip(),
-        password = request.POST.get('reg-password').strip(),
+        name = request.POST.get('reg-username').strip()
+        email = request.POST.get('reg-email').strip()
+        number = request.POST.get('reg-phone').strip()
+        password = request.POST.get('reg-password').strip()
         repeat_password = request.POST.get('reg-ex-password').strip()
 
         if not all([name, email, number, password, repeat_password]):
