@@ -55,24 +55,35 @@ document.addEventListener('DOMContentLoaded', function () {
                         'X-Requested-With': 'XMLHttpRequest'
                     }
                 });
-                const data = await response.json();
-                if (data.success === 'False') {
-                    showNotification(data.message, true);
-                } else {
-                    if (response.redirected) {
-                        window.location.href = response.url;
+                const contentType = response.headers.get('content-type');
+                if (!response.ok || !contentType || !contentType.includes("application/json")) {
+                    console.log(response, " - ", response.headers)
+                    showError("Uncorrect response (Error or not JSON)")
+                }
+                else {
+                    const data = await response.json();
+                    if (data.success === false) {
+                        showNotification(data.message, true);
                     } else {
-                        showNotification('Регистрация успешна', false);
-                        // window.location.href('/menu');
+                        if (response.redirected) {
+                            window.location.href = response.url;
+                        } else {
+                            showNotification('Регистрация успешна', false);
+                            window.location.href = '/menu';
+                        }
                     }
                 }
 
             }
             catch (error) {
-                console.warn("Ошибка сервера или сети:", error);
-                alert("Произошла ошибка")
+                showError(error)
             }
         })
+    }
+
+    function showError(error) {
+        console.warn("Ошибка сервера или сети:", error);
+        alert("Произошла ошибка")
     }
 
     function showRegPopup() {
