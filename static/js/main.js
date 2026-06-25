@@ -29,9 +29,14 @@ document.addEventListener('DOMContentLoaded', function () {
         notification.style.borderRadius = '5px';
         notification.style.zIndex = '10000';
         notification.style.fontSize = '14px';
+        notification.style.fontWeight = '600';
+        notification.style.animation = 'notFade 1s';
 
         document.body.appendChild(notification);
 
+        setTimeout(() => {
+            notification.style.animation = "notFadeOut 1.2s"
+        }, 2500)
         setTimeout(() => {
             notification.remove();
         }, 3000);
@@ -39,38 +44,25 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (regForm) {
         regForm.addEventListener('submit', async (e) => {
-            // 1. Отменяем стандартную перезагрузку страницы при отправке формы
             e.preventDefault();
-
-            // 2. Собираем все данные из полей формы
             const formData = new FormData(regForm);
-
             try {
-                // 3. Отправляем асинхронный POST-запрос на URL, указанный в action формы
                 const response = await fetch(regForm.action, {
                     method: 'POST',
                     body: formData,
                     headers: {
-                        // Django требует этот заголовок для защиты от CSRF при AJAX-запросах
                         'X-Requested-With': 'XMLHttpRequest'
                     }
                 });
-
-                // 4. Ловим и декодируем JSON-ответ от Django
                 const data = await response.json();
-
-                // 5. Обрабатываем результат (свойства success и message из вашего views.py)
                 if (data.success === 'False') {
-                    // Выводим ошибку пользователю (можно заменить на красивый alert или текст на экране)
-                    alert(`Ошибка регистрации: ${data.message}`);
+                    showNotification(data.message, true);
                 } else {
-                    // Если всё успешно (например, если Django вернул redirect)
-                    // Проверяем, прислал ли сервер URL для перенаправления
                     if (response.redirected) {
                         window.location.href = response.url;
                     } else {
-                        alert('Регистрация успешна!');
-                        window.location.href('/menu'); // или перенаправление вручную
+                        showNotification('Регистрация успешна', false);
+                        window.location.href('/menu');
                     }
                 }
 
