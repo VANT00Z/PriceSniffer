@@ -51,6 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     method: 'POST',
                     body: formData,
                     headers: {
+                        'Accept': 'application/json',
                         'X-Requested-With': 'XMLHttpRequest'
                     }
                 });
@@ -62,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         window.location.href = response.url;
                     } else {
                         showNotification('Регистрация успешна', false);
-                        window.location.href('/menu');
+                        // window.location.href('/menu');
                     }
                 }
 
@@ -73,11 +74,6 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         })
     }
-
-    if (authForm) {
-        console.log('Форма авторизации найдена')
-    }
-
 
     function showRegPopup() {
         regPopup.style.display = 'flex';

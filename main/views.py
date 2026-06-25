@@ -60,8 +60,6 @@ def authorization(request):
             return JsonResponse(response)
 
         try:
-            # Успех
-            # user = User.objects.get(username=name)
             response = {
                 'success': 'True',
                 'message': 'Успешная авторизация',
