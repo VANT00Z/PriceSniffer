@@ -42,44 +42,44 @@ document.addEventListener('DOMContentLoaded', function () {
         }, 3000);
     }
 
-    if (regForm) {
-        regForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const formData = new FormData(regForm);
-            try {
-                const response = await fetch(regForm.action, {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'Accept': 'application/json',
-                        'X-Requested-With': 'XMLHttpRequest'
-                    }
-                });
-                const contentType = response.headers.get('content-type');
-                if (!response.ok || !contentType || !contentType.includes("application/json")) {
-                    console.log(response, " - ", response.headers)
-                    showError("Uncorrect response (Error or not JSON)")
-                }
-                else {
-                    const data = await response.json();
-                    if (data.success === false) {
-                        showNotification(data.message, true);
-                    } else {
-                        if (response.redirected) {
-                            window.location.href = response.url;
-                        } else {
-                            showNotification('Регистрация успешна', false);
-                            window.location.href = '/menu';
-                        }
-                    }
-                }
+    // if (regForm) {
+    //     regForm.addEventListener('submit', async (e) => {
+    //         e.preventDefault();
+    //         const formData = new FormData(regForm);
+    //         try {
+    //             const response = await fetch(regForm.action, {
+    //                 method: 'POST',
+    //                 body: formData,
+    //                 headers: {
+    //                     'Accept': 'application/json',
+    //                     'X-Requested-With': 'XMLHttpRequest'
+    //                 }
+    //             });
+    //             const contentType = response.headers.get('content-type');
+    //             if (!response.ok || !contentType || !contentType.includes("application/json")) {
+    //                 console.log(response, " - ", response.headers)
+    //                 showError("Uncorrect response (Error or not JSON)")
+    //             }
+    //             else {
+    //                 const data = await response.json();
+    //                 if (data.success === false) {
+    //                     showNotification(data.message, true);
+    //                 } else {
+    //                     if (response.redirected) {
+    //                         window.location.href = response.url;
+    //                     } else {
+    //                         showNotification('Регистрация успешна', false);
+    //                         window.location.href = '/menu';
+    //                     }
+    //                 }
+    //             }
 
-            }
-            catch (error) {
-                showError(error)
-            }
-        })
-    }
+    //         }
+    //         catch (error) {
+    //             showError(error)
+    //         }
+    //     })
+    // }
 
     function showError(error) {
         console.warn("Ошибка сервера или сети:", error);

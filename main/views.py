@@ -116,8 +116,14 @@ def registration(request):
         try:
             # Успех
             hashed_password = hashlib.sha256(password.encode()).hexdigest()
+            
+            response = {
+                'success': 'True',
+                'message':'Успешная регистрация',
+                'redirect': '/menu'
+            }
 
-            return redirect('main:menu')
+            return JsonResponse(response)
 
         except Exception as error:
             response = {
