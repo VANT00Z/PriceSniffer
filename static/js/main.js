@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const regForm = document.getElementById("reg-form");
     const authForm = document.getElementById("auth-form");
 
+    const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
     let isReg = true;
 
 
@@ -40,6 +41,36 @@ document.addEventListener('DOMContentLoaded', function () {
         setTimeout(() => {
             notification.remove();
         }, 3000);
+    }
+
+    if (regForm) {
+        regForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(regForm);
+            console.log(formData);
+
+            const name = formData.get('reg-username');
+            const email = formData.get('reg-username');
+            const phone = formData.get('reg-username');
+            const password = formData.get('reg-username');
+            const exPassword = formData.get('reg-username');
+
+            formBody = new FormData();
+            formData.append('reg-username', name);
+            formData.append('reg-email', email);
+            formData.append('reg-phone', phone);
+            formData.append('reg-password', password);
+            formData.append('reg-ex-password', exPassword);
+
+            const response = await fetch('/register', {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken,
+                },
+                body: formBody
+            })
+            console.log(response);
+        })
     }
 
     // if (regForm) {

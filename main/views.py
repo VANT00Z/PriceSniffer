@@ -5,6 +5,8 @@ from .models import User, Review
 import json
 import hashlib
 
+from django.db import transaction
+
 """ Main """
 
 
@@ -116,10 +118,17 @@ def registration(request):
         try:
             # Успех
             hashed_password = hashlib.sha256(password.encode()).hexdigest()
-            
+
+            with transaction.atomic():
+                user = User.objects.create(
+                    name=name,
+                    email=email,
+                    phone=number,
+                )
+
             response = {
                 'success': 'True',
-                'message':'Успешная регистрация',
+                'message': 'Успешная регистрация',
                 'redirect': '/menu'
             }
 
