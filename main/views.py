@@ -62,6 +62,8 @@ def authorization(request):
             return JsonResponse(response)
 
         try:
+            user = User.objects.get(username=name, password=hashed_password)
+
             response = {
                 'success': 'True',
                 'message': 'Успешная авторизация',

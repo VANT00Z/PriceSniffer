@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const regForm = document.getElementById("reg-form");
     const authForm = document.getElementById("auth-form");
 
-    const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+    const csrfToken = document.querySelector('meta[name="csrf_token"]')?.getAttribute('content')
     let isReg = true;
 
 
@@ -46,71 +46,84 @@ document.addEventListener('DOMContentLoaded', function () {
     if (regForm) {
         regForm.addEventListener('submit', async (e) => {
             e.preventDefault();
+
             const formData = new FormData(regForm);
-            console.log(formData);
+            const formBody = new FormData();
 
-            const name = formData.get('reg-username');
-            const email = formData.get('reg-username');
-            const phone = formData.get('reg-username');
-            const password = formData.get('reg-username');
-            const exPassword = formData.get('reg-username');
+            formBody.append('reg-username', formData.get('reg-username'));
+            formBody.append('reg-email', formData.get('reg-email'));
+            formBody.append('reg-phone', formData.get('reg-phone'));
+            formBody.append('reg-password', formData.get('reg-password'));
+            formBody.append('reg-ex-password', formData.get('reg-ex-password'));
 
-            formBody = new FormData();
-            formData.append('reg-username', name);
-            formData.append('reg-email', email);
-            formData.append('reg-phone', phone);
-            formData.append('reg-password', password);
-            formData.append('reg-ex-password', exPassword);
+            try {
+                const response = await fetch('/register', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': csrfToken
+                    },
+                    body: formBody
+                });
 
-            const response = await fetch('/register', {
-                method: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': csrfToken,
-                },
-                body: formBody
-            })
-            console.log(response);
+                const contentType = response.headers.get('content-type');
+                if (!response.ok || !contentType) {
+                    console.log(response, " - ", response.headers)
+                    showError("Uncorrect response (Error)")
+                }
+
+                else if (!contentType.includes("application/json")) {
+                    showError("Uncorrect response (not JSON)")
+                }
+            }
+
+            catch (error) {
+                showError(error)
+            }
         })
     }
 
-    // if (regForm) {
-    //     regForm.addEventListener('submit', async (e) => {
-    //         e.preventDefault();
-    //         const formData = new FormData(regForm);
-    //         try {
-    //             const response = await fetch(regForm.action, {
-    //                 method: 'POST',
-    //                 body: formData,
-    //                 headers: {
-    //                     'Accept': 'application/json',
-    //                     'X-Requested-With': 'XMLHttpRequest'
-    //                 }
-    //             });
-    //             const contentType = response.headers.get('content-type');
-    //             if (!response.ok || !contentType || !contentType.includes("application/json")) {
-    //                 console.log(response, " - ", response.headers)
-    //                 showError("Uncorrect response (Error or not JSON)")
-    //             }
-    //             else {
-    //                 const data = await response.json();
-    //                 if (data.success === false) {
-    //                     showNotification(data.message, true);
-    //                 } else {
-    //                     if (response.redirected) {
-    //                         window.location.href = response.url;
-    //                     } else {
-    //                         showNotification('Регистрация успешна', false);
-    //                         window.location.href = '/menu';
-    //                     }
-    //                 }
-    //             }
+    if (authForm) {
+        authForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
 
-    //         }
-    //         catch (error) {
-    //             showError(error)
-    //         }
-    //     })
-    // }
+            const formData = new FormData(authForm);
+            const formBody = new FormData();
+
+            const email = formData.get('auth-username');
+            const password = formData.get('auth-password');
+
+            formBody.append('auth-username', email);
+            formBody.append('auth-password', password);
+
+            if (!email || !password) {
+                showNotification('Необходимо заполнить все поля', true);
+                return;
+            }
+
+            try {
+                const response = await fetch('/authorization', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': csrfToken
+                    },
+                    body: formBody
+                });
+
+                const data = await response.json();
+
+                if (data.success === true) {
+                    showNotification(data.message, false);
+                    setTimeout(() => {
+                        window.location.href = data.redirect;
+                    }, 1500);
+                }
+            }
+
+            catch (error) {
+                showError(error)
+            }
+        })
+    }
 
     function showError(error) {
         console.warn("Ошибка сервера или сети:", error);
