@@ -50,11 +50,27 @@ document.addEventListener('DOMContentLoaded', function () {
             const formData = new FormData(regForm);
             const formBody = new FormData();
 
-            formBody.append('reg-username', formData.get('reg-username'));
-            formBody.append('reg-email', formData.get('reg-email'));
-            formBody.append('reg-phone', formData.get('reg-phone'));
-            formBody.append('reg-password', formData.get('reg-password'));
-            formBody.append('reg-ex-password', formData.get('reg-ex-password'));
+            const name = formData.get('reg-username');
+            const email = formData.get('reg-email');
+            const phone = formData.get('reg-phone');
+            const password = formData.get('reg-password');
+            const exPassword = formData.get('reg-ex-password');
+
+            if (!name || !email || !phone || !password || !exPassword) {
+                showNotification('Необходимо заполнить все поля', true);
+                return;
+            }
+
+            if (password !== exPassword) {
+                showNotification('Пароли не совпадают', true);
+                return;
+            }
+
+            formBody.append('reg-username', name);
+            formBody.append('reg-email', email);
+            formBody.append('reg-phone', phone);
+            formBody.append('reg-password', password);
+            formBody.append('reg-ex-password', exPassword);
 
             try {
                 const response = await fetch('/register', {
@@ -66,6 +82,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
 
                 const contentType = response.headers.get('content-type');
+
                 if (!response.ok || !contentType) {
                     console.log(response, " - ", response.headers)
                     showError("Uncorrect response (Error)")
@@ -73,6 +90,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 else if (!contentType.includes("application/json")) {
                     showError("Uncorrect response (not JSON)")
+                }
+
+                const data = await response.json();
+                if (data.success === 'False') {
+                    showNotification(data.message, true);
+                }
+                else if (data.success === 'True') {
+                    showNotification(data.message, false);
+                    setTimeout(() => {
+                        window.location.href = data.redirect;
+                    }, 1500);
                 }
             }
 
@@ -109,7 +137,15 @@ document.addEventListener('DOMContentLoaded', function () {
                     body: formBody
                 });
 
+                if (!response.ok) {
+                    showError('Uncorrect response (Error)');
+                }
+
                 const data = await response.json();
+
+                if (data.success === 'False') {
+                    
+                }
 
                 if (data.success === true) {
                     showNotification(data.message, false);

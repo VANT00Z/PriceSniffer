@@ -103,14 +103,14 @@ def registration(request):
             }
             return JsonResponse(response)
 
-        elif password != repeat_password:
+        if password != repeat_password:
             response = {
                 'success': 'False',
                 'message': 'Пароли не совпадают'
             }
             return JsonResponse(response)
 
-        elif User.objects.filter(username=str(name)).exists():
+        if User.objects.filter(username=str(name)).exists():
             response = {
                 'success': 'False',
                 'message': 'Пользователь уже существует'
@@ -123,10 +123,12 @@ def registration(request):
 
             with transaction.atomic():
                 user = User.objects.create(
-                    name=name,
+                    username=name,
                     email=email,
                     phone=number,
+                    password=hashed_password,
                 )
+                user.save()
 
             response = {
                 'success': 'True',
@@ -147,4 +149,4 @@ def registration(request):
 
 
 def create_review(request):
-    return render(request, '')
+    return redirect('main:reviews')
