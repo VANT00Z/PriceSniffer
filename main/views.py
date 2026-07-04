@@ -61,22 +61,22 @@ def authorization(request):
             }
             return JsonResponse(response)
 
-        try:
-            user = User.objects.get(username=name, password=hashed_password)
-
-            response = {
-                'success': 'True',
-                'message': 'Успешная авторизация',
-                'redirect': '/menu'
-            }
-            return JsonResponse(response)
-
-        except User.DoesNotExist:
+        if User.DoesNotExist:
             response = {
                 'success': 'False',
                 'message': 'Пользователь не найден'
             }
             return JsonResponse(response)
+
+        try:
+            user = User.objects.get(username=name, password=hashed_password)
+            if user:
+                response = {
+                    'success': 'True',
+                    'message': 'Успешная авторизация',
+                    'redirect': '/menu'
+                }
+                return JsonResponse(response)
 
         except Exception as error:
             response = {
