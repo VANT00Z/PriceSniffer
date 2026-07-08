@@ -56,15 +56,8 @@ def authorization(request):
 
         if not all([name, password]):
             response = {
-                'success': 'False',
+                'success': False,
                 'message': 'Не все поля заполнены'
-            }
-            return JsonResponse(response)
-
-        if User.DoesNotExist:
-            response = {
-                'success': 'False',
-                'message': 'Пользователь не найден'
             }
             return JsonResponse(response)
 
@@ -72,16 +65,23 @@ def authorization(request):
             user = User.objects.get(username=name, password=hashed_password)
             if user:
                 response = {
-                    'success': 'True',
+                    'success': True,
                     'message': 'Успешная авторизация',
                     'redirect': '/menu'
                 }
                 return JsonResponse(response)
 
+        except User.DoesNotExist:
+            response = {
+                'success': False,
+                'message': 'Пользователь не найден'
+            }
+            return JsonResponse(response)
+
         except Exception as error:
             response = {
-                'success': 'False',
-                'message': f'Ошибка: {error}'
+                'success': False,
+                'message': error
             }
             return JsonResponse(response)
 
@@ -98,21 +98,21 @@ def registration(request):
 
         if not all([name, email, number, password, repeat_password]):
             response = {
-                'success': 'False',
+                'success': False,
                 'message': 'Не все поля заполнены'
             }
             return JsonResponse(response)
 
         if password != repeat_password:
             response = {
-                'success': 'False',
+                'success': False,
                 'message': 'Пароли не совпадают'
             }
             return JsonResponse(response)
 
         if User.objects.filter(username=str(name)).exists():
             response = {
-                'success': 'False',
+                'success': False,
                 'message': 'Пользователь уже существует'
             }
             return JsonResponse(response)
@@ -131,7 +131,7 @@ def registration(request):
                 user.save()
 
             response = {
-                'success': 'True',
+                'success': True,
                 'message': 'Успешная регистрация',
                 'redirect': '/menu'
             }
@@ -140,7 +140,7 @@ def registration(request):
 
         except Exception as error:
             response = {
-                'success': 'False',
+                'success': False,
                 'message': f'Ошибка: {error}'
             }
             return JsonResponse(response)

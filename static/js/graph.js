@@ -2,93 +2,82 @@ const canvas = document.getElementById('graph');
 const ctx = canvas.getContext('2d');
 
 // Константы
-const speed = 0.8;            // Скорость
-const lineWidth = 4;          // Толщина линии
+const speed = 0.8;
 const lineColor = '#FF0000';
-const arrowOffset = 25;       // Отступ конца от правого края
+const arrowOffset = 25;
+const minDelta = 5;
+const maxDelta = 40;
+const padding = 10;
+const canvasHeight = canvas.height;
+const canvasWidth = canvas.width;
+const startX = canvasWidth - arrowOffset;
+const filterThreshold = -10;
+const directionBias = 0.52;
 
-let points = [];
+// Предварительная настройка стилей
+ctx.lineWidth = 4;
+ctx.strokeStyle = lineColor;
+ctx.lineJoin = 'miter';
+ctx.lineCap = 'butt';
+ctx.miterLimit = 25;
+
+// Буферы для координат
+const MAX_POINTS = Math.ceil((startX - filterThreshold) / speed) + 5;
+const xBuffer = new Float64Array(MAX_POINTS);
+const yBuffer = new Float64Array(MAX_POINTS);
+let pointCount = 0;
 let frameCount = 0;
+let currentY = canvasHeight;
 
-// Функция генерации точек с увеличенным разбросом по высоте
 function generateNextY(lastY) {
-    // Диапазон работы
-    const minDelta = 5;
-    const maxDelta = 40;
     const randomDelta = minDelta + Math.random() * (maxDelta - minDelta);
-
-    const direction = Math.random() < 0.52 ? -1 : 1;
-
-    let newY = lastY + (direction * randomDelta);
-
-    // Отступы (верх/низ)
-    const padding = 10;
-    if (newY < padding) newY = padding;
-    if (newY > canvas.height - padding) newY = canvas.height - padding;
-
-    return newY;
+    const direction = Math.random() < directionBias ? -1 : 1;
+    const newY = lastY + direction * randomDelta;
+    return newY < padding ? padding :
+        newY > canvasHeight - padding ? canvasHeight - padding :
+            newY;
 }
 
-// let currentY = canvas.height / 2;
-let currentY = canvas.height
-
 function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
-    const startX = canvas.width - arrowOffset;
-
-    // Интервал
-    if (frameCount % 7 === 0) {
+    if ((frameCount++ & 7) === 0) { // Эквивалент frameCount % 7 === 0
         currentY = generateNextY(currentY);
-        points.unshift({ x: startX, y: currentY });
+        // Добавление новой точки в начало массива
+        if (pointCount < MAX_POINTS) {
+            for (let i = pointCount; i > 0; i--) {
+                xBuffer[i] = xBuffer[i - 1];
+                yBuffer[i] = yBuffer[i - 1];
+            }
+            xBuffer[0] = startX;
+            yBuffer[0] = currentY;
+            pointCount++;
+        }
     }
-    frameCount++;
 
-    for (let i = 0; i < points.length; i++) {
-        points[i].x -= speed;
+    // Обновление позиций и удаление устаревших точек
+    let validCount = 0;
+    for (let i = 0; i < pointCount; i++) {
+        xBuffer[i] -= speed;
+        if (xBuffer[i] > filterThreshold) {
+            if (i !== validCount) {
+                xBuffer[validCount] = xBuffer[i];
+                yBuffer[validCount] = yBuffer[i];
+            }
+            validCount++;
+        }
     }
-    points = points.filter(p => p.x > -10);
+    pointCount = validCount;
 
-    ctx.lineWidth = lineWidth;
-    ctx.strokeStyle = lineColor;
-    ctx.lineJoin = 'miter';
-    ctx.lineCap = 'butt';
-    ctx.miterLimit = 25;
-
-    if (points.length > 1) {
+    // Отрисовка с использованием буферов
+    if (validCount > 1) {
         ctx.beginPath();
-        ctx.moveTo(points[0].x, points[0].y);
-        for (let i = 1; i < points.length; i++) {
-            ctx.lineTo(points[i].x, points[i].y);
+        ctx.moveTo(xBuffer[0], yBuffer[0]);
+        for (let i = 1; i < validCount; i++) {
+            ctx.lineTo(xBuffer[i], yBuffer[i]);
         }
         ctx.stroke();
     }
-
-    // Отрисовка стрелки
-    // if (points.length > 1) {
-    //     const headX = points[0].x;
-    //     const headY = points[0].y;
-
-    //     const angle = Math.atan2(points[0].y - points[1].y, points[0].x - points[1].x);
-    //     const arrowLength = 10;
-
-    //     ctx.beginPath();
-    //     ctx.moveTo(headX, headY);
-
-    //     ctx.lineTo(
-    //         headX - arrowLength * Math.cos(angle - Math.PI / 6),
-    //         headY - arrowLength * Math.sin(angle - Math.PI / 6)
-    //     );
-
-    //     ctx.moveTo(headX, headY);
-
-    //     ctx.lineTo(
-    //         headX - arrowLength * Math.cos(angle + Math.PI / 6),
-    //         headY - arrowLength * Math.sin(angle + Math.PI / 6)
-    //     );
-
-    //     ctx.stroke();
-    // }
 
     requestAnimationFrame(animate);
 }

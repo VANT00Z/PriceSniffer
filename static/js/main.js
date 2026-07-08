@@ -76,7 +76,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 const response = await fetch('/register', {
                     method: 'POST',
                     headers: {
-                        'X-CSRFToken': csrfToken
+                        'X-CSRFToken': csrfToken,
+                        'Accept': 'application/json'
                     },
                     body: formBody
                 });
@@ -93,10 +94,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
 
                 const data = await response.json();
-                if (data.success === 'False') {
+                if (data.success === false) {
                     showNotification(data.message, true);
                 }
-                else if (data.success === 'True') {
+                else if (data.success === true) {
                     showNotification(data.message, false);
                     setTimeout(() => {
                         window.location.href = data.redirect;
@@ -127,39 +128,41 @@ document.addEventListener('DOMContentLoaded', function () {
                 showNotification('Необходимо заполнить все поля', true);
                 return;
             }
-
-            try {
-                const response = await fetch('/authorization', {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRFToken': csrfToken
-                    },
-                    body: formBody
-                });
-
-                if (!response.ok) {
-                    showError('Uncorrect response (Error)');
-                }
-
-                const data = await response.json();
-                console.log(data);
+            console.log(formData);
+            console.log(formBody);
 
 
-                if (data.success === 'False') {
-                    showNotification(data.message, true);
-                }
+            // try {
+            //     const response = await fetch('/authorization', {
+            //         method: 'POST',
+            //         headers: {
+            //             'X-CSRFToken': csrfToken,
+            //             'Accept': 'application/json'
+            //         },
+            //         body: formBody
+            //     });
 
-                if (data.success === true) {
-                    showNotification(data.message, false);
-                    setTimeout(() => {
-                        window.location.href = data.redirect;
-                    }, 1500);
-                }
-            }
+            //     if (!response.ok) {
+            //         showError('Uncorrect response (Error)');
+            //     }
 
-            catch (error) {
-                showError(error)
-            }
+            //     const data = await response.json();
+
+            //     if (data.success === false) {
+            //         showNotification(data.message, true);
+            //     }
+
+            //     if (data.success === true) {
+            //         showNotification(data.message, false);
+            //         setTimeout(() => {
+            //             window.location.href = data.redirect;
+            //         }, 1500);
+            //     }
+            // }
+
+            // catch (error) {
+            //     showError(error)
+            // }
         })
     }
 
