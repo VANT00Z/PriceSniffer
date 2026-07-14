@@ -1,3 +1,19 @@
 from django.contrib import admin
+from django.apps import AppConfig
+from .models import User, Review
 
-# Register your models here.
+
+class MyAppConfig(AppConfig):
+    name = 'Price Sniffer'
+    verbose_name = 'Ищейка'
+
+
+""" Decorations """
+admin.site.site_header = 'Price Sniffer Admin Panel'
+admin.site.site_title = 'PS AP'
+admin.site.index_title = 'Welcome to Admin Panel'
+# admin.site.index_template = ''
+
+""" Register funcs"""
+admin.site.register(User)
+admin.site.register(Review)

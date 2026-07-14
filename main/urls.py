@@ -17,6 +17,9 @@ urlpatterns = [
     # Protocols
     # path(),
 
+    # Administrators
+    path('moderator_view', views.moderatorView, name='moderatorView'),
+
     # Actions
     path('register', views.registration, name='register'),
     path('authorization', views.authorization, name='authorization'),

@@ -44,11 +44,6 @@ def link(request):
 """ Functions """
 
 
-def set_Cookie(request, user):
-    # Подключение cookie
-    return redirect('main:index')
-
-
 def authorization(request):
     if request.method == 'POST':
         name = request.POST.get('auth-username').strip()
@@ -152,6 +147,35 @@ def registration(request):
 
 def create_review(request):
     return redirect('main:reviews')
+
+
+""" Admin funcs """
+
+
+def moderatorView(request):
+    response = {
+        'success': False,
+        'message': 'Now unwork',
+        'redirect': '/'
+    }
+
+    return JsonResponse(response)
+
+
+def getVisits(request):
+    return
+
+
+""" Cookie """
+
+
+def set_Cookie(request):
+    user_id = request.session.get('user_id')
+    return redirect('main:index')
+
+
+def checkCookie(request):
+    return redirect('main:index')
 
 
 logger = getLogger(__name__)

@@ -147,11 +147,27 @@ nav ul {
 }
 
 nav ul li a {
-    width: 100px;
     font-size: 20px;
     font-weight: 600;
     text-decoration: none;
     color: white;
+    position: relative;
+    display: inline-block;
+}
+
+nav ul li a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    height: 2px;
+    width: 0;
+    background-color: currentColor;
+    transition: width 0.2s ease;
+}
+
+nav ul li a:hover::after {
+    width: 100%;
 }
 
 /* Animations */
