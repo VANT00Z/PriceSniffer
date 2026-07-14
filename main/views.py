@@ -1,6 +1,8 @@
+from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from .models import User, Review
+from logging import getLogger
 
 import json
 import hashlib
@@ -150,3 +152,20 @@ def registration(request):
 
 def create_review(request):
     return redirect('main:reviews')
+
+
+logger = getLogger(__name__)
+
+
+@csrf_exempt
+def sendLog(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            log_message = data.get('log_message')
+
+            logger.info(f"Лог из JS: {log_message}")
+
+            return JsonResponse({'status': 'success'})
+        except Exception as e:
+            return JsonResponse({'status': 'error', 'message': str(e)}, status=400)

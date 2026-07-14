@@ -20,4 +20,5 @@ urlpatterns = [
     # Actions
     path('register', views.registration, name='register'),
     path('authorization', views.authorization, name='authorization'),
+    path('server_log', views.sendLog, name='serverLog')
 ]

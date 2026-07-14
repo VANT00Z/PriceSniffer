@@ -132,6 +132,28 @@ header .logo {
     border: #140F0B solid 5px;
 }
 
+nav {
+    background-color: black;
+    min-height: 100px;
+}
+
+nav ul {
+    padding: 20px 40px 0 0;
+    gap: 20px;
+    list-style: none;
+    justify-content: right;
+    display: flex;
+    flex-direction: row;
+}
+
+nav ul li a {
+    width: 100px;
+    font-size: 20px;
+    font-weight: 600;
+    text-decoration: none;
+    color: white;
+}
+
 /* Animations */
 @keyframes buttonsHover {
     from {

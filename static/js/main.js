@@ -128,47 +128,39 @@ document.addEventListener('DOMContentLoaded', function () {
                 showNotification('Необходимо заполнить все поля', true);
                 return;
             }
-            console.log(formData);
-            console.log(formBody);
 
+            try {
+                const response = await fetch('/authorization', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': csrfToken,
+                        'Accept': 'application/json'
+                    },
+                    body: formBody
+                });
 
-            // try {
-            //     const response = await fetch('/authorization', {
-            //         method: 'POST',
-            //         headers: {
-            //             'X-CSRFToken': csrfToken,
-            //             'Accept': 'application/json'
-            //         },
-            //         body: formBody
-            //     });
+                if (!response.ok) {
+                    throw new Error(`Ошибка сервера: ${response.status}`);
+                }
 
-            //     if (!response.ok) {
-            //         showError('Uncorrect response (Error)');
-            //     }
+                const data = await response.json();
 
-            //     const data = await response.json();
+                if (data.success === false) {
+                    showNotification(data.message, true);
+                }
 
-            //     if (data.success === false) {
-            //         showNotification(data.message, true);
-            //     }
+                if (data.success === true) {
+                    showNotification(data.message, false)
+                    setTimeout(() => {
+                        window.location.href = data.redirect;
+                    }, 1500);
+                }
+            }
 
-            //     if (data.success === true) {
-            //         showNotification(data.message, false);
-            //         setTimeout(() => {
-            //             window.location.href = data.redirect;
-            //         }, 1500);
-            //     }
-            // }
-
-            // catch (error) {
-            //     showError(error)
-            // }
+            catch (error) {
+                showError(error)
+            }
         })
-    }
-
-    function showError(error) {
-        console.warn("Ошибка сервера или сети:", error);
-        alert("Произошла ошибка")
     }
 
     function showRegPopup() {
@@ -235,4 +227,22 @@ document.addEventListener('DOMContentLoaded', function () {
             closePopups();
         }
     });
+
+    // Demonstration funtions
+    function sendLogToServer(message) {
+        fetch('/server_log', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCookie('csrftoken')
+            },
+            body: JSON.stringify({ 'log_message': message })
+        });
+    }
+
+    function showError(error) {
+        console.warn("Ошибка сервера или сети:", error);
+        alert("Произошла ошибка")
+    }
+
 })
