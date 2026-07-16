@@ -12,7 +12,7 @@ class MyAppConfig(AppConfig):
 admin.site.site_header = 'Price Sniffer Admin Panel'
 admin.site.site_title = 'PS AP'
 admin.site.index_title = 'Welcome to Admin Panel'
-# admin.site.index_template = ''
+
 
 """ Register funcs"""
 admin.site.register(User)

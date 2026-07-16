@@ -1,6 +1,7 @@
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
+from django.contrib.auth import logout, login
 from .models import User, Review
 from logging import getLogger
 
@@ -24,7 +25,11 @@ def mainMenu(request):
 
 
 def profile(request):
-    return render(request, 'main/profile.html')
+    if request.user.is_authenticated:
+        user = request.user.username
+        return render(request, 'main/profile.html', {'UserName': user})
+    else:
+        return redirect('main:menu')
 
 
 def contacts(request):
@@ -66,6 +71,9 @@ def authorization(request):
                     'message': 'Успешная авторизация',
                     'redirect': '/menu'
                 }
+
+                auth_user()
+
                 return JsonResponse(response)
 
         except User.DoesNotExist:
@@ -115,7 +123,6 @@ def registration(request):
             return JsonResponse(response)
 
         try:
-            # Успех
             hashed_password = hashlib.sha256(password.encode()).hexdigest()
 
             with transaction.atomic():
@@ -133,6 +140,8 @@ def registration(request):
                 'redirect': '/menu'
             }
 
+            auth_user()
+
             return JsonResponse(response)
 
         except Exception as error:
@@ -142,6 +151,18 @@ def registration(request):
             }
             return JsonResponse(response)
 
+    return redirect('main:index')
+
+
+def auth_user(request):
+    if request.user.is_authenticated:
+        return redirect('main:menu')
+    user = request.user
+    login(request, user)
+
+
+def logout_user(request):
+    logout(request)
     return redirect('main:index')
 
 
@@ -158,7 +179,6 @@ def moderatorView(request):
         'message': 'Now unwork',
         'redirect': '/'
     }
-
     return JsonResponse(response)
 
 
