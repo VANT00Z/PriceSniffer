@@ -1,7 +1,7 @@
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
-from django.contrib.auth import logout, login
+from django.contrib.auth import logout, login, authenticate
 from .models import User, Review
 from logging import getLogger
 
@@ -72,9 +72,23 @@ def authorization(request):
                     'redirect': '/menu'
                 }
 
-                auth_user()
-
                 return JsonResponse(response)
+
+                # if request.user.is_authenticated:
+                #     return JsonResponse(response)
+
+                # user_auth = authenticate(
+                #     request, username=name, password=password)
+
+                # if user is not None:
+                #     login(request, user_auth)
+                #     return JsonResponse(response)
+                # else:
+                #     response = {
+                #         'success': False,
+                #         'message': 'Неверный логин или пароль'
+                #     }
+                #     return JsonResponse(response)
 
         except User.DoesNotExist:
             response = {
@@ -132,6 +146,7 @@ def registration(request):
                     phone=number,
                     password=hashed_password,
                 )
+                login(request, user)
                 user.save()
 
             response = {
@@ -139,8 +154,6 @@ def registration(request):
                 'message': 'Успешная регистрация',
                 'redirect': '/menu'
             }
-
-            auth_user()
 
             return JsonResponse(response)
 
@@ -154,11 +167,11 @@ def registration(request):
     return redirect('main:index')
 
 
-def auth_user(request):
-    if request.user.is_authenticated:
-        return redirect('main:menu')
-    user = request.user
-    login(request, user)
+# def auth_user(request):
+#     if request.user.is_authenticated:
+#         return redirect('main:menu')
+#     user = request.user
+#     login(request, user)
 
 
 def logout_user(request):

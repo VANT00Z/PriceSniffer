@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 const response = await fetch('/register', {
                     method: 'POST',
                     headers: {
-                        'X-CSRFToken': csrfToken,
+                        'X-Csrftoken': csrfToken,
                         'Accept': 'application/json'
                     },
                     body: formBody
@@ -86,15 +86,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 if (!response.ok || !contentType) {
                     console.log(response, " - ", response.headers)
-                    showError("Uncorrect response (Error)")
+                    showError("Uncorrect response (Error)");
                 }
 
                 else if (!contentType.includes("application/json")) {
-                    showError("Uncorrect response (not JSON)")
+                    showError("Uncorrect response (not JSON)");
                 }
 
                 const data = await response.json();
                 if (data.success === false) {
+                    alert(data.message)
                     showNotification(data.message, true);
                 }
                 else if (data.success === true) {
