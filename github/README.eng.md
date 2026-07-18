@@ -77,4 +77,4 @@ http://127.0.0.1:8000/
 
 # Licence
 
-Distributed under the [Apache License 2.0](LICENCE).
+Distributed under the [Apache License 2.0](LICENSE).
