@@ -1,7 +1,7 @@
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
-from django.contrib.auth import logout, login, authenticate
+from django.contrib.auth.hashers import make_password
 from .models import User, Review
 from logging import getLogger
 
@@ -54,41 +54,28 @@ def authorization(request):
         name = request.POST.get('auth-username').strip()
         password = request.POST.get('auth-password').strip()
 
-        hashed_password = hashlib.sha256(password.encode()).hexdigest()
+        hashed_password = make_password(password)
 
         if not all([name, password]):
             response = {
                 'success': False,
                 'message': 'Не все поля заполнены'
             }
+
             return JsonResponse(response)
 
         try:
             user = User.objects.get(username=name, password=hashed_password)
-            if user:
-                response = {
-                    'success': True,
-                    'message': 'Успешная авторизация',
-                    'redirect': '/menu'
-                }
 
-                return JsonResponse(response)
+            response = {
+                'success': True,
+                'message': 'Успешная регистрация',
+                'redirect': '/menu'
+            }
 
-                # if request.user.is_authenticated:
-                #     return JsonResponse(response)
-
-                # user_auth = authenticate(
-                #     request, username=name, password=password)
-
-                # if user is not None:
-                #     login(request, user_auth)
-                #     return JsonResponse(response)
-                # else:
-                #     response = {
-                #         'success': False,
-                #         'message': 'Неверный логин или пароль'
-                #     }
-                #     return JsonResponse(response)
+            request.session['user_id'] = user.id
+            request.session['username'] = user.username
+            return JsonResponse(response)
 
         except User.DoesNotExist:
             response = {
@@ -137,7 +124,7 @@ def registration(request):
             return JsonResponse(response)
 
         try:
-            hashed_password = hashlib.sha256(password.encode()).hexdigest()
+            hashed_password = make_password(password)
 
             with transaction.atomic():
                 user = User.objects.create(
@@ -146,8 +133,9 @@ def registration(request):
                     phone=number,
                     password=hashed_password,
                 )
-                login(request, user)
-                user.save()
+
+                request.session['user_id'] = user.id
+                request.session['username'] = user.username
 
             response = {
                 'success': True,
@@ -167,15 +155,7 @@ def registration(request):
     return redirect('main:index')
 
 
-# def auth_user(request):
-#     if request.user.is_authenticated:
-#         return redirect('main:menu')
-#     user = request.user
-#     login(request, user)
-
-
 def logout_user(request):
-    logout(request)
     return redirect('main:index')
 
 

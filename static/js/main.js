@@ -95,7 +95,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 const data = await response.json();
                 if (data.success === false) {
-                    alert(data.message)
                     showNotification(data.message, true);
                 }
                 else if (data.success === true) {
@@ -107,7 +106,8 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             catch (error) {
-                showError(error)
+                showError(error);
+                return;
             }
         })
     }
@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 const response = await fetch('/authorization', {
                     method: 'POST',
                     headers: {
-                        'X-CSRFToken': csrfToken,
+                        'X-Csrftoken': csrfToken,
                         'Accept': 'application/json'
                     },
                     body: formBody
@@ -159,7 +159,8 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             catch (error) {
-                showError(error)
+                showError(error);
+                return;
             }
         })
     }
@@ -191,43 +192,56 @@ document.addEventListener('DOMContentLoaded', function () {
             isReg = true;
         }
     }
+    if (startButton) {
+        startButton.addEventListener('click', function (event) {
+            event.preventDefault();
+            showRegPopup();
+        });
+    }
 
-    startButton.addEventListener('click', function (event) {
-        event.preventDefault();
-        showRegPopup();
-    });
+    if (changeToAuth) {
+        changeToAuth.addEventListener('click', function (event) {
+            changePopups();
+            event.preventDefault();
+        });
+    }
 
-    changeToAuth.addEventListener('click', function (event) {
-        event.preventDefault();
-        changePopups();
-    });
+    if (changeToReg) {
+        changeToReg.addEventListener('click', function (event) {
+            event.preventDefault();
+            changePopups();
+        });
+    }
 
-    changeToReg.addEventListener('click', function (event) {
-        event.preventDefault();
-        changePopups();
-    });
-
-    closeAuth.addEventListener('click', function (event) {
-        event.preventDefault();
-        closePopups();
-    });
-
-    closeReg.addEventListener('click', function (event) {
-        event.preventDefault();
-        closePopups();
-    });
-
-    authPopup.addEventListener('click', function (event) {
-        if (event.target === authPopup) {
+    if (closeAuth) {
+        closeAuth.addEventListener('click', function (event) {
+            event.preventDefault();
             closePopups();
-        }
-    });
+        });
+    }
 
-    regPopup.addEventListener('click', function (event) {
-        if (event.target === regPopup) {
+    if (closeReg) {
+        closeReg.addEventListener('click', function (event) {
+            event.preventDefault();
             closePopups();
-        }
-    });
+        });
+    }
+
+    if (authPopup) {
+        authPopup.addEventListener('click', function (event) {
+            if (event.target === authPopup) {
+                closePopups();
+            }
+        });
+    }
+
+    if (regPopup) {
+        regPopup.addEventListener('click', function (event) {
+            if (event.target === regPopup) {
+                closePopups();
+            }
+        });
+    }
 
     // Demonstration funtions
     function sendLogToServer(message) {
@@ -243,7 +257,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function showError(error) {
         console.warn("Ошибка сервера или сети:", error);
-        alert("Произошла ошибка")
+        alert("Произошла ошибка");
     }
 
 })
