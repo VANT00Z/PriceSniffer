@@ -25,8 +25,8 @@ def mainMenu(request):
 
 
 def profile(request):
-    if request.user.is_authenticated:
-        user = request.user.username
+    if request.session.get('user_id'):
+        user = request.session.get('username')
         return render(request, 'main/profile.html', {'UserName': user})
     else:
         return redirect('main:menu')
@@ -54,7 +54,7 @@ def authorization(request):
         name = request.POST.get('auth-username').strip()
         password = request.POST.get('auth-password').strip()
 
-        hashed_password = make_password(password)
+        hashed_password = hashlib.sha256(password.encode()).hexdigest()
 
         if not all([name, password]):
             response = {
@@ -67,14 +67,15 @@ def authorization(request):
         try:
             user = User.objects.get(username=name, password=hashed_password)
 
+            request.session['user_id'] = user.id
+            request.session['username'] = user.username
+
             response = {
                 'success': True,
                 'message': 'Успешная регистрация',
                 'redirect': '/menu'
             }
 
-            request.session['user_id'] = user.id
-            request.session['username'] = user.username
             return JsonResponse(response)
 
         except User.DoesNotExist:
@@ -124,7 +125,7 @@ def registration(request):
             return JsonResponse(response)
 
         try:
-            hashed_password = make_password(password)
+            hashed_password = hashlib.sha256(password.encode()).hexdigest()
 
             with transaction.atomic():
                 user = User.objects.create(
@@ -156,6 +157,28 @@ def registration(request):
 
 
 def logout_user(request):
+
+    try:
+        request.session.flush()
+        response = {
+            'success': True,
+            'message': 'Выход из аккаунта',
+            'redirect': '/'
+        }
+
+        return JsonResponse(response)
+
+    except Exception as error:
+        response = {
+            'success': False,
+            'message': error
+        }
+
+        return JsonResponse(response)
+
+
+def delete_account(request):
+    # Удаление аккаунта
     return redirect('main:index')
 
 
