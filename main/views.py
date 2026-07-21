@@ -1,7 +1,6 @@
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
-from django.contrib.auth.hashers import make_password
 from .models import User, Review
 from logging import getLogger
 
@@ -14,11 +13,17 @@ from django.db import transaction
 
 
 def index(request):
-    return render(request, 'main/index.html')
+    if request.session.get('user_id'):
+        return redirect('main:menu')
+    else:
+        return render(request, 'main/index.html')
 
 
 def mainMenu(request):
-    return render(request, 'main/menu.html')
+    if request.session.get('user_id'):
+        return render(request, 'main/menu.html')
+    else:
+        return redirect('main:index')
 
 
 """ Buttons """
@@ -72,7 +77,7 @@ def authorization(request):
 
             response = {
                 'success': True,
-                'message': 'Успешная регистрация',
+                'message': 'Успешная авторизация',
                 'redirect': '/menu'
             }
 
@@ -157,7 +162,6 @@ def registration(request):
 
 
 def logout_user(request):
-
     try:
         request.session.flush()
         response = {

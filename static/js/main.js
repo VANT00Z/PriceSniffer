@@ -257,7 +257,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function showError(error) {
         console.warn("Ошибка сервера или сети:", error);
-        alert("Произошла ошибка");
+        showNotification('Произошла ошибка', true)
     }
 
 })
