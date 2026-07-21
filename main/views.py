@@ -51,6 +51,13 @@ def link(request):
     return render(request, 'main/link.html')
 
 
+def authors(request):
+    return render(request, 'main/authors.html')
+
+def donate(request):
+    return render(request, 'main/donate.html')
+
+
 """ Functions """
 
 

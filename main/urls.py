@@ -13,6 +13,7 @@ urlpatterns = [
     path('contacts', views.contacts, name='contacts'),
     path('reviews', views.reviews, name='reviews'),
     path('link', views.link, name='link'),
+    path('authors', views.authors, name='authors'),
 
     # Administrators
     path('moderator_view', views.moderatorView, name='moderatorView'),

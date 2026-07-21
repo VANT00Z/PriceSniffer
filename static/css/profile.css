@@ -86,3 +86,17 @@ header a::before {
     font-size: 20px;
     font-weight: 700;
 }
+
+.user_card_body a {
+    font-size: 20px;
+    font-weight: 700;
+    color: black;
+    display: flex;
+    text-decoration: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.user_card_body a:hover {
+    color: red;
+}
